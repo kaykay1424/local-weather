@@ -1,0 +1,210 @@
+/* Variables */
+
+:root {
+    --current-forecast-rgb: 40, 90, 131;
+    --week-forecast-rgb: 10, 100, 42;  
+}
+
+html, body {
+	
+	height: 100%;
+	
+}
+
+body {
+
+	background-color: rgb(233, 153, 4);
+  
+   	padding-top: 5%;
+  
+    background-attachment: fixed;
+  
+    background-repeat: no-repeat;
+  
+    background-size: cover;
+  
+   	background-position: center;
+  
+   	text-shadow: 2px 2px 2px black;
+
+	overflow-wrap: break-word;
+
+	word-wrap: break-word;
+	
+	hyphens: auto;
+	
+}
+
+body.default {
+    background-color: #f9f9f9;
+    
+    background-image: none !important;
+}
+
+.loading, .location-access, .refresh-page, .error {
+	
+	color: white;
+	
+	font-size: 20px;
+	
+	display: none;
+	
+}
+
+.loading:after {
+
+	overflow: hidden;
+	
+	display: inline-block;    
+	
+	animation: loading_ellipsis 1s infinite; 
+	
+	content: "\2026"; /* ascii code for ellipsis character */
+	
+	width: 0px;
+	
+	vertical-align: bottom;
+	
+}
+
+@keyframes loading_ellipsis {
+	
+	to {
+	
+		width: 30px; 
+		   
+	}
+
+}
+
+#current-forecast-container {
+
+	margin-bottom: 10%;
+	
+	display: none;
+		
+}
+
+#current-forecast {
+
+	background-color: rgba(var(--current-forecast-rgb), .5); /* blue color */
+	
+	color: white;
+	
+	text-align: center;
+	
+	/* border: 2px ridge white; */
+		
+	box-shadow: 2px 2px 8px ;
+	
+	padding: 5rem;
+	
+}
+
+#current-forecast.default {
+    background-color: rgba(var(--current-forecast-rgb), 1);
+    
+    box-shadow: 2px 2px 8px #000;
+}
+
+.btn-container .btn {
+    margin: 1rem;
+}
+
+#week-forecast-container {
+
+	background-color: rgba(var(--week-forecast-rgb), .5); /* green color */
+	
+	color: white;
+	
+	/* border-top: 2px solid white; */
+	
+	display: none;
+  	
+  	position: relative;
+	
+	position: sticky;
+	
+	top: 100%;
+
+}
+
+#week-forecast-container.default {
+    background-color: rgba(var(--week-forecast-rgb),1);
+}
+
+#week-forecast-container .col-md-2 {
+	
+	padding: 1rem;
+	
+	/* height: 150px; */
+	
+}
+
+#week-forecast-container .current-day {
+    
+    font-size: 15px;
+
+    margin-top: 0;
+
+}
+
+#week-forecast-container .current-day button {
+	
+	margin: 3%;
+
+}
+
+#week-forecast-container a {
+	
+	color: white;
+	
+	text-decoration: underline;
+	
+}
+
+/* Responsive Styles */
+
+@media only screen and (max-width: 991px)  {
+
+	#current-forecast {
+		
+		border-radius: 0;
+			
+	}
+	
+	#week-forecast-container .col-md-2:not(#day5) {
+		
+		border-bottom: 2px solid white;
+		
+	}
+
+    .forecast-day {
+        
+        padding-top: 1rem;
+    
+    }
+	
+}
+
+@media only screen and (min-width:992px) {
+	
+	#current-forecast {
+		
+		border-radius: 50%;
+		
+	}
+	
+	#week-forecast-container .col-md-2:not(#day5) {
+		
+		border-right: 2px solid white;
+		
+	}
+
+    #week-forecast-container .col-md-2 {
+
+        padding-top: 0;
+	
+    }
+	
+}
