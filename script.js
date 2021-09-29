@@ -316,12 +316,19 @@ $(document).ready(function() {
         /* Grid points are necessary to get forecast for NWS (National Weather Service) API
             This endpoint returns the forecast endpoint with the grid points in the properties
         */
-        const gridKeys = await $.get(`https://api.weather.gov/points/${latitude},${longitude}/`)
-        .catch(error => {
-
-            $('.error').show();
+        const gridKeys = await $.ajax({
+            url: `https://api.weather.gov/points/${latitude},${longitude}/`,
+            type: 'get',
+            success: function(data) {
+                return new Promise((resolve, reject) => {
+                    resolve(data);
+                });
+            },
+            error: function() {
+                $('.error').show();
 				
-            $('.loading, .location-access').hide();
+                $('.loading, .location-access').hide();
+            }
         }),
             city = gridKeys.properties.relativeLocation.properties.city,
             state = gridKeys.properties.relativeLocation.properties.state,
@@ -342,10 +349,11 @@ $(document).ready(function() {
                 return;
             }
 
-            // Exclude night forecasts from array of forecasts
+            /*  Exclude night forecasts from array of forecasts
+                except for the first day in the array
+            */
             const periods = data.properties.periods.filter((period) => {
-                // return !period.name.match(/(Night|Tonight)/);
-                return !period.name.match(/(night)/i);
+                return period.number === 1 || !period.name.match(/(night)/i);
             });
 
             $('.forecast-day').each(function(i, currentDayForecast) {
